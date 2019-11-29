@@ -25,9 +25,9 @@ const CartTable = ({ items, deleteFromCart, countTotal }) => {
   );
 };
 
-const mapStateToProps = ({ items }) => {
+const mapStateToProps = ({ menu }) => {
   return {
-    items
+    items: menu.filter(item => item.count > 0)
   };
 };
 

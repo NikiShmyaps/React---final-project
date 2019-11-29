@@ -18,9 +18,9 @@ const AppHeader = ({ total }) => {
     </header>
   );
 };
-const mapStateToProps = ({ total }) => {
+const mapStateToProps = ({ menu }) => {
   return {
-    total
+    total: menu.reduce((sum, item) => sum + (item.count * item.price), 0)
   };
 };
 

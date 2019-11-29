@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MenuListItem from "../menu-list-item";
 import { connect } from "react-redux";
 import WithRestoService from "../hoc";
-import { menuLoaded, menuRequsted, menuError, addToCart, countTotal } from "../../actions/";
+import { menuLoaded, menuRequsted, menuError, addToCart } from "../../actions/";
 import Spinner from "../spinner";
 import Error from "../error";
 
@@ -10,11 +10,13 @@ import "./menu-list.scss";
 
 class MenuList extends Component {
   componentDidMount() {
-    this.props.menuRequsted();
-    const { RestoService } = this.props;
-    RestoService.getMenuItems()
-      .then(res => this.props.menuLoaded(res))
-      .catch(() => this.props.menuError());
+    const { RestoService, menuRequsted, menuItems } = this.props;
+    if (!menuItems.length) {
+      menuRequsted();
+      RestoService.getMenuItems()
+        .then(res => this.props.menuLoaded(res))
+        .catch(() => this.props.menuError());
+    }
   }
   render() {
     const { menuItems, loading, error, addToCart, countTotal } = this.props;
@@ -35,24 +37,19 @@ class MenuList extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({menu, loading, error}) => {
   return {
-    menuItems: state.menu,
-    loading: state.loading,
-    error: state.error
+    menuItems: menu,
+    loading,
+    error
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    menuLoaded: newMenu => {
-      dispatch(menuLoaded(newMenu));
-    },
-    menuRequsted: () => dispatch(menuRequsted()),
-    menuError: () => dispatch(menuError()),
-    addToCart: id => dispatch(addToCart(id)),
-    countTotal: () => dispatch(countTotal())
-  };
+const mapDispatchToProps = {
+  menuLoaded,
+  menuRequsted,
+  menuError,
+  addToCart
 };
 
 export default WithRestoService()(connect(mapStateToProps, mapDispatchToProps)(MenuList));

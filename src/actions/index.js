@@ -1,7 +1,7 @@
 const menuLoaded = newMenu => {
   return {
     type: "MENU_LOADED",
-    payLoad: newMenu
+    payload: newMenu
   };
 };
 
@@ -27,7 +27,7 @@ const deleteFromCart = id => {
   console.log(`удаление ${id}`);
   return {
     type: "ITEM_DEL_FROM_CART",
-    payLoad: id
+    payload: id
     
   };
 };
