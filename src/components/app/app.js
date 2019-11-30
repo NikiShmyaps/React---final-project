@@ -1,6 +1,6 @@
 import React from "react";
 import { MainPage, CartPage } from "../pages";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import AppHeader from "../app-header";
 
 import Background from "./food-bg.jpg";
@@ -10,14 +10,8 @@ const App = () => {
     <Router>
       <div style={{background: `url(${Background}) center center/cover no-repeat`}} className="app">
         <AppHeader />
-        <Switch>
-          <Route path="/menu">
-            <MainPage/>
-          </Route>
-          <Route path="/cart">
-            <CartPage/>
-          </Route>
-        </Switch>
+        <Route path="/" exact component={MainPage} />
+        <Route path="/cart" component={CartPage} />
       </div>
     </Router>
   );

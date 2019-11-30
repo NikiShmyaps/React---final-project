@@ -23,8 +23,8 @@ const addToCart = id => {
     payload: id
   };
 };
+
 const deleteFromCart = id => {
-  console.log(`удаление ${id}`);
   return {
     type: "ITEM_DEL_FROM_CART",
     payload: id
@@ -32,10 +32,4 @@ const deleteFromCart = id => {
   };
 };
 
-const countTotal = () => {
-  return {
-    type: "COUNT_TOTAL"
-  };
-};
-
-export { menuLoaded, menuRequsted, menuError, addToCart, deleteFromCart, countTotal };
+export { menuLoaded, menuRequsted, menuError, addToCart, deleteFromCart };

@@ -7,7 +7,7 @@ import "./app-header.scss";
 const AppHeader = ({ total }) => {
   return (
     <header className="header">
-      <Link className="header__link" to="/menu">
+      <Link className="header__link" to="/">
         Menu
       </Link>
 

@@ -10,16 +10,16 @@ import "./menu-list.scss";
 
 class MenuList extends Component {
   componentDidMount() {
-    const { RestoService, menuRequsted, menuItems } = this.props;
+    const { RestoService, menuRequsted, menuItems, menuLoaded, menuError } = this.props;
     if (!menuItems.length) {
       menuRequsted();
       RestoService.getMenuItems()
-        .then(res => this.props.menuLoaded(res))
-        .catch(() => this.props.menuError());
+        .then(res => menuLoaded(res))
+        .catch(menuError);
     }
   }
   render() {
-    const { menuItems, loading, error, addToCart, countTotal } = this.props;
+    const { menuItems, loading, error, addToCart } = this.props;
     if (error) {
       return <Error />;
     }
@@ -30,7 +30,7 @@ class MenuList extends Component {
     return (
       <ul className="menu__list">
         {menuItems.map(menuItem => (
-          <MenuListItem key={menuItem.id} menuItem={menuItem} onAddToCart={() => addToCart(menuItem.id)} countTotal={countTotal}/>
+          <MenuListItem key={menuItem.id} menuItem={menuItem} onAddToCart={() => addToCart(menuItem.id)}/>
         ))}
       </ul>
     );
